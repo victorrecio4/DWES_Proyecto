@@ -47,22 +47,20 @@
          * @return true si el usuario esta registrado en el sistema
          * @return false si el usuario no esta registrado en el sistema
          */
-        public function login($conexion, $username, $pass){
-            // Returns if the authentication was successful
-        $sql = 'SELECT username, pass FROM autentificacion WHERE username = ? AND pass = ?';
-        $consulta = $conexion->prepare($sql);
-        $consulta->bindParam(1, $username);
-        $consulta->bindParam(2, $pass);
-        $consulta->execute();
-        $registrosEncontrados = $consulta->rowCount();
-        if ($registrosEncontrados > 0) {
-            // El usuario autentica, guardamos username en variable de sesión y redireccionamos
-            session_start();
-            $_SESSION['username'] = $_POST['usuario'];
-            return true;
-        }
-        return false;
-        }
-        
+        public function login($conexion, $username, $pass){    
+            $sql = 'SELECT username, pass FROM autentificacion WHERE username = ? AND pass = ?';
+            $consulta = $conexion->prepare($sql);
+            $consulta->bindParam(1, $username);
+            $consulta->bindParam(2, $pass);
+            $consulta->execute();
+            $registrosEncontrados = $consulta->rowCount();
+            if ($registrosEncontrados > 0) {
+                // El usuario autentica, guardamos username en variable de sesión y redireccionamos
+                session_start();
+                $_SESSION['username'] = $_POST['usuario'];
+                return true;
+            }
+            return false;
+            } 
      }
 ?>
